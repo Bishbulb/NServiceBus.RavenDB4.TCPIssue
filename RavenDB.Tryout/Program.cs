@@ -31,6 +31,9 @@ namespace RavenDB.Tryout
 
                 Thread.Sleep(TimeSpan.FromSeconds(10));
             }
+
+            Console.WriteLine("Press any key to exit");
+            Console.ReadLine();
         }
 
         private static IDocumentStore BuildDocumentStore()
@@ -40,7 +43,7 @@ namespace RavenDB.Tryout
 
             var store = new DocumentStore
             {
-                Urls = urls,
+                Urls = new []{ "http://localhost:8090" },
                 Database = "RavenDB.Tryouts",
                 Conventions =
                 {
