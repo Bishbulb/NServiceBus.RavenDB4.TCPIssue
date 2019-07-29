@@ -1,0 +1,35 @@
+<?xml version="1.0"?>
+<doc>
+    <assembly>
+        <name>NServiceBus.ObjectBuilder.StructureMap</name>
+    </assembly>
+    <members>
+        <member name="M:ConfigurationExpressionExtensions.EnableSetterInjectionFor(StructureMap.ConfigurationExpression,System.Type)">
+            <summary>
+            Tells StructureMap to do setter injection for the given type
+            </summary>
+        </member>
+        <member name="T:NServiceBus.StructureMapBuilder">
+            <summary>
+            StructureMap Container
+            </summary>
+        </member>
+        <member name="M:NServiceBus.StructureMapBuilder.CreateContainer(NServiceBus.Settings.ReadOnlySettings)">
+            <summary>
+                Implementers need to new up a new container.
+            </summary>
+            <param name="settings">The settings to check if an existing container exists.</param>
+            <returns>The new container wrapper.</returns>
+        </member>
+        <member name="T:NServiceBus.StructureMapExtensions">
+            <summary>
+            Extension to pass an existing StructureMap <see cref="T:StructureMap.IContainer"/> instance.
+            </summary>
+        </member>
+        <member name="M:NServiceBus.StructureMapExtensions.ExistingContainer(NServiceBus.Container.ContainerCustomizations,StructureMap.IContainer)">
+            <summary>
+            Use the a pre-configured <see cref="T:StructureMap.IContainer"/>.
+            </summary>
+        </member>
+    </members>
+</doc>

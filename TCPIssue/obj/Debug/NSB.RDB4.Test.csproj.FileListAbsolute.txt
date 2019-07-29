@@ -1,0 +1,2 @@
+D:\Dev\NServiceBus.RavenDB4.TCPIssue\NSB.RDB4.Test\obj\Debug\NSB.RDB4.Test.csprojAssemblyReference.cache
+D:\Dev\NServiceBus.RavenDB4.TCPIssue\NSB.RDB4.Test\obj\Debug\NSB.RDB4.Test.csproj.CoreCompileInputs.cache

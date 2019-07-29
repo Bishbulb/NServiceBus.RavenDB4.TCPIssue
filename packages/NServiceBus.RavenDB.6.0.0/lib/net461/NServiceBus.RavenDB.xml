@@ -1,0 +1,362 @@
+<?xml version="1.0"?>
+<doc>
+    <assembly>
+        <name>NServiceBus.RavenDB</name>
+    </assembly>
+    <members>
+        <member name="T:NServiceBus.Persistence.RavenDB.ConnectionParameters">
+            <summary>
+                Connection parameters to be used when connecting to RavenDB
+            </summary>
+        </member>
+        <member name="P:NServiceBus.Persistence.RavenDB.ConnectionParameters.Url">
+            <summary>
+                The url of the RavenDB server
+            </summary>
+        </member>
+        <member name="P:NServiceBus.Persistence.RavenDB.ConnectionParameters.DatabaseName">
+            <summary>
+                The name of the database to use on the specified RavenDB server
+            </summary>
+        </member>
+        <member name="P:NServiceBus.Persistence.RavenDB.ConnectionParameters.ApiKey">
+            <summary>
+                The RavenDB API key if needed
+            </summary>
+        </member>
+        <member name="P:NServiceBus.Persistence.RavenDB.ConnectionParameters.Credentials">
+            <summary>
+                Gets or sets the credentials.
+            </summary>
+            <value>The credentials.</value>
+        </member>
+        <member name="T:NServiceBus.Persistence.RavenDB.DocumentIdConventionsExtensions">
+            <summary>
+            This class provides advanced extension methods for RavenDB persistence configuration.
+            </summary>
+        </member>
+        <member name="M:NServiceBus.Persistence.RavenDB.DocumentIdConventionsExtensions.DoNotUseLegacyConventionsWhichIsOnlySafeForNewEndpoints(NServiceBus.PersistenceExtensions{NServiceBus.RavenDBPersistence})">
+            <summary>
+            Do not use legacy DocumentId mapping strategies from previous versions of NServiceBus.RavenDB.
+            This is a breaking change which, if applied to an existing database, will result in lost Saga and Timeout data.
+            Do not use this on an existing database under any circumstances.
+            </summary>
+        </member>
+        <member name="M:NServiceBus.Persistence.RavenDB.Helpers.SafelyCreateIndex(Raven.Client.Documents.IDocumentStore,Raven.Client.Documents.Indexes.AbstractIndexCreationTask)">
+            <summary>
+            Safely add the index to the RavenDB database, protect against possible failures caused by documented
+            and undocumented possibilities of failure.
+            Will throw iff index registration failed and index doesn't exist or it exists but with a non-current definition.
+            </summary>
+            <param name="store"></param>
+            <param name="index"></param>
+        </member>
+        <member name="M:NServiceBus.Persistence.RavenDB.ContextBagExtensions.GetAsyncSession(NServiceBus.Extensibility.ContextBag)">
+            <summary>
+            Retrieves an IAsyncDocumentSession from the ContextBag. If a sessionFunction exists, that will be used
+            to create the session. Otherwise, retrieve the session directly from the bag.
+            </summary>
+        </member>
+        <member name="T:NServiceBus.Persistence.RavenDB.IAsyncSessionProvider">
+            <summary>
+                Provides access the the session managed by NServiceBus
+            </summary>
+        </member>
+        <member name="P:NServiceBus.Persistence.RavenDB.IAsyncSessionProvider.AsyncSession">
+            <summary>
+                The async session
+            </summary>
+        </member>
+        <member name="T:NServiceBus.Persistence.RavenDB.RavenDBSynchronizedStorageSession">
+            <summary>
+            Synchronized storage session for wrapping RavenDB transactions
+            </summary>
+        </member>
+        <member name="P:NServiceBus.Persistence.RavenDB.RavenDBSynchronizedStorageSession.Session">
+            <summary>
+            The RavenDB session
+            </summary>
+        </member>
+        <member name="M:NServiceBus.Persistence.RavenDB.RavenDBSynchronizedStorageSession.#ctor(Raven.Client.Documents.Session.IAsyncDocumentSession)">
+            <summary>
+            Constructor for synchronized storage session
+            </summary>
+            <param name="session">The transaction to wrap</param>
+        </member>
+        <member name="M:NServiceBus.Persistence.RavenDB.RavenDBSynchronizedStorageSession.Dispose">
+            <inheritdoc />
+        </member>
+        <member name="M:NServiceBus.Persistence.RavenDB.RavenDBSynchronizedStorageSession.CompleteAsync">
+            <inheritdoc />
+        </member>
+        <member name="F:NServiceBus.Persistence.RavenDB.QueryTimeouts.maximumPageSize">
+            <summary>
+            RavenDB server default maximum page size
+            </summary>
+        </member>
+        <member name="T:NServiceBus.RavenDbGatewayDeduplicationSettingsExtensions">
+            <summary>
+                Configuration settings specific to the timeout storage
+            </summary>
+        </member>
+        <member name="M:NServiceBus.RavenDbGatewayDeduplicationSettingsExtensions.UseDocumentStoreForGatewayDeduplication(NServiceBus.PersistenceExtensions{NServiceBus.RavenDBPersistence},Raven.Client.Documents.IDocumentStore)">
+            <summary>
+                Configures the given document store to be used when storing gateway deduplication data
+            </summary>
+            <param name="cfg"></param>
+            <param name="documentStore">The document store to use</param>
+        </member>
+        <member name="M:NServiceBus.RavenDbGatewayDeduplicationSettingsExtensions.UseDocumentStoreForGatewayDeduplication(NServiceBus.PersistenceExtensions{NServiceBus.RavenDBPersistence},System.Func{NServiceBus.Settings.ReadOnlySettings,Raven.Client.Documents.IDocumentStore})">
+            <summary>
+                Configures the given document store to be used when storing gateway deduplication data
+            </summary>
+            <param name="cfg"></param>
+            <param name="storeCreator">A Func that will create the document store on NServiceBus initialization.</param>
+        </member>
+        <member name="T:NServiceBus.RavenDBOutboxExtensions">
+            <summary>
+            Contains extensions methods which allow to configure RavenDB outbox specific configuration
+            </summary>
+        </member>
+        <member name="M:NServiceBus.RavenDBOutboxExtensions.SetTimeToKeepDeduplicationData(NServiceBus.EndpointConfiguration,System.TimeSpan)">
+            <summary>
+            Sets the time to keep the deduplication data to the specified time span.
+            </summary>
+            <param name="configuration">The configuration being extended</param>
+            <param name="timeToKeepDeduplicationData">The time to keep the deduplication data.
+            The cleanup process removes entries older than the specified time to keep deduplication data, therefore the time span cannot be negative</param>
+            <returns>The configuration</returns>
+        </member>
+        <member name="M:NServiceBus.RavenDBOutboxExtensions.SetFrequencyToRunDeduplicationDataCleanup(NServiceBus.EndpointConfiguration,System.TimeSpan)">
+            <summary>
+            Sets the frequency to run the deduplication data cleanup task.
+            </summary>
+            <param name="configuration">The configuration being extended</param>
+            <param name="frequencyToRunDeduplicationDataCleanup">The frequency to run the deduplication data cleanup task. By specifying <code>System.Threading.Timeout.InfiniteTimeSpan</code> (-1 milliseconds) the cleanup task will never run.</param>
+            <returns>The configuration</returns>
+        </member>
+        <member name="T:NServiceBus.RavenDBPersistence">
+            <summary>
+                Specifies the capabilities of the ravendb suite of storages
+            </summary>
+        </member>
+        <member name="M:NServiceBus.RavenDBPersistence.#ctor">
+            <summary>
+                Defines the capabilities
+            </summary>
+        </member>
+        <member name="T:NServiceBus.RavenDbSettingsExtensions">
+            <summary>
+                Provides configurations methods for the Raven storages
+            </summary>
+        </member>
+        <member name="M:NServiceBus.RavenDbSettingsExtensions.SetDefaultDocumentStore(NServiceBus.PersistenceExtensions{NServiceBus.RavenDBPersistence},Raven.Client.Documents.IDocumentStore)">
+            <summary>
+                Configures the storages to use the given document store supplied
+            </summary>
+            <param name="cfg"></param>
+            <param name="documentStore">Document store managed by me as a user</param>
+            <returns></returns>
+        </member>
+        <member name="M:NServiceBus.RavenDbSettingsExtensions.SetDefaultDocumentStore(NServiceBus.PersistenceExtensions{NServiceBus.RavenDBPersistence},System.Func{NServiceBus.Settings.ReadOnlySettings,Raven.Client.Documents.IDocumentStore})">
+            <summary>
+                Configures the storages to use the given document store supplied
+            </summary>
+            <param name="cfg"></param>
+            <param name="storeCreator">A Func that will create the document store on NServiceBus initialization.</param>
+            <returns></returns>
+        </member>
+        <member name="M:NServiceBus.RavenDbSettingsExtensions.SetDefaultDocumentStore(NServiceBus.PersistenceExtensions{NServiceBus.RavenDBPersistence},NServiceBus.Persistence.RavenDB.ConnectionParameters)">
+            <summary>
+                Configures the persisters to connection to the server specified
+            </summary>
+            <param name="cfg"></param>
+            <param name="connectionParameters">Connection details</param>
+            <returns></returns>
+        </member>
+        <member name="M:NServiceBus.RavenDbSettingsExtensions.UseSharedAsyncSession(NServiceBus.PersistenceExtensions{NServiceBus.RavenDBPersistence},System.Func{System.Collections.Generic.IDictionary{System.String,System.String},Raven.Client.Documents.Session.IAsyncDocumentSession})">
+            <summary>
+                Specifies the async session that the shared persisters (saga + outbox) that should be used. The lifecycle is controlled by
+                me
+            </summary>
+            <param name="cfg"></param>
+            <param name="getAsyncSessionFunc">A func returning the async session to be used</param>
+            <returns></returns>
+        </member>
+        <member name="M:NServiceBus.RavenDbSettingsExtensions.SetMessageToDatabaseMappingConvention(NServiceBus.PersistenceExtensions{NServiceBus.RavenDBPersistence},System.Func{System.Collections.Generic.IDictionary{System.String,System.String},System.String})">
+            <summary>
+                Specifies the mapping to use for when resolving the database name to use for each message.
+            </summary>
+            <param name="cfg">The configuration object.</param>
+            <param name="convention">
+                The method referenced by a Func delegate for finding the database name for the specified
+                message.
+            </param>
+            <returns>The configuration object.</returns>
+        </member>
+        <member name="M:NServiceBus.RavenDbSettingsExtensions.DoNotSetupDatabasePermissions(NServiceBus.PersistenceExtensions{NServiceBus.RavenDBPersistence})">
+            <summary>
+                Tells the persister to not setup user permissions for the database
+            </summary>
+            <param name="cfg"></param>
+            <returns></returns>
+        </member>
+        <member name="T:NServiceBus.RavenDbSagaSettingsExtensions">
+            <summary>
+                Provides configuration options
+            </summary>
+        </member>
+        <member name="M:NServiceBus.RavenDbSagaSettingsExtensions.UseDocumentStoreForSagas(NServiceBus.PersistenceExtensions{NServiceBus.RavenDBPersistence},Raven.Client.Documents.IDocumentStore)">
+            <summary>
+                Configures the given document store to be used when storing sagas
+            </summary>
+            <param name="cfg">Object to attach to</param>
+            <param name="documentStore">The document store to be used</param>
+        </member>
+        <member name="M:NServiceBus.RavenDbSagaSettingsExtensions.UseDocumentStoreForSagas(NServiceBus.PersistenceExtensions{NServiceBus.RavenDBPersistence},System.Func{NServiceBus.Settings.ReadOnlySettings,Raven.Client.Documents.IDocumentStore})">
+            <summary>
+                Configures the given document store to be used when storing sagas
+            </summary>
+            <param name="cfg">Object to attach to</param>
+            <param name="storeCreator">A Func that will create the document store on NServiceBus initialization.</param>
+        </member>
+        <member name="T:NServiceBus.RavenSessionExtension">
+            <summary>
+            Extensions to manage RavenDB session.
+            </summary>
+        </member>
+        <member name="M:NServiceBus.RavenSessionExtension.RavenSession(NServiceBus.Persistence.SynchronizedStorageSession)">
+            <summary>
+            Gets the current RavenDB session.
+            </summary>
+            <param name="session">The storage session.</param>
+            <returns></returns>
+        </member>
+        <member name="T:NServiceBus.RavenDbSubscriptionSettingsExtensions">
+            <summary>
+                Provides configuration options specific to the subscription storage
+            </summary>
+        </member>
+        <member name="M:NServiceBus.RavenDbSubscriptionSettingsExtensions.UseDocumentStoreForSubscriptions(NServiceBus.PersistenceExtensions{NServiceBus.RavenDBPersistence},Raven.Client.Documents.IDocumentStore)">
+            <summary>
+                Configures the given document store to be used when storing subscriptions
+            </summary>
+            <param name="cfg"></param>
+            <param name="documentStore">The document store to use</param>
+        </member>
+        <member name="M:NServiceBus.RavenDbSubscriptionSettingsExtensions.UseDocumentStoreForSubscriptions(NServiceBus.PersistenceExtensions{NServiceBus.RavenDBPersistence},System.Func{NServiceBus.Settings.ReadOnlySettings,Raven.Client.Documents.IDocumentStore})">
+            <summary>
+                Configures the given document store to be used when storing subscriptions
+            </summary>
+            <param name="cfg"></param>
+            <param name="storeCreator">A Func that will create the document store on NServiceBus initialization.</param>
+        </member>
+        <member name="M:NServiceBus.RavenDbSubscriptionSettingsExtensions.DoNotCacheSubscriptions(NServiceBus.PersistenceExtensions{NServiceBus.RavenDBPersistence})">
+            <summary>
+            Disable in-memory caching of Subscription information. By default, NServiceBus will cache subscriptions in memory
+            until a server notification informs the RavenDB client of a change, or 1 minute elapses, whichever occurs first.
+            Although slower, using this option ensures that the subscription storage is checked for changes with every published message.
+            </summary>
+            <param name="cfg"></param>
+        </member>
+        <member name="M:NServiceBus.RavenDbSubscriptionSettingsExtensions.CacheSubscriptionsFor(NServiceBus.PersistenceExtensions{NServiceBus.RavenDBPersistence},System.TimeSpan)">
+            <summary>
+            Change the amount of time that Subscription information is cached in-memory. Uses the RavenDB Aggresive Caching feature,
+            so RavenDB server will send notifications to the client when subscriptions change before the cache duration expires,
+            however these notifications are not 100% reliable. Default duration is 1 minute.
+            </summary>
+            <param name="cfg"></param>
+            <param name="aggressiveCacheDuration"></param>
+            <returns></returns>
+        </member>
+        <member name="M:NServiceBus.RavenDbSubscriptionSettingsExtensions.DisableSubscriptionVersioning(NServiceBus.PersistenceExtensions{NServiceBus.RavenDBPersistence})">
+            <summary>
+            Do not include message assembly major version in subscription document lookup key.
+            Subscription behavior will be changed such that all existing subscriptions will be rendered invalid.
+            Do not enable in an existing system without converting subscription documents first.
+            </summary>
+            <param name="cfg"></param>
+            <returns></returns>
+        </member>
+        <member name="M:NServiceBus.RavenDbSubscriptionSettingsExtensions.UseLegacyVersionedSubscriptions(NServiceBus.PersistenceExtensions{NServiceBus.RavenDBPersistence})">
+            <summary>
+            Continue to use legacy method of subscription versioning that includes the message assembly
+            major version in the subscription document lookup key. This option will be obsoleted in NServiceBus.RavenDB 6.0.0,
+            so subscriptions should be converted to the new format, after which the <see cref="M:NServiceBus.RavenDbSubscriptionSettingsExtensions.DisableSubscriptionVersioning(NServiceBus.PersistenceExtensions{NServiceBus.RavenDBPersistence})"/>
+            option should be used instead.
+            </summary>
+            <param name="cfg"></param>
+            <returns></returns>
+        </member>
+        <member name="T:NServiceBus.Testing.TestableRavenStorageSession">
+            <summary>
+            A fake implementation for <see cref="T:NServiceBus.Persistence.SynchronizedStorageSession"/> for testing purposes.
+            </summary>
+        </member>
+        <member name="M:NServiceBus.Testing.TestableRavenStorageSession.#ctor(Raven.Client.Documents.Session.IAsyncDocumentSession)">
+            <summary>
+            Creates a new instance of <see cref="T:NServiceBus.Testing.TestableRavenStorageSession"/> using the provided <see cref="T:Raven.Client.Documents.Session.IAsyncDocumentSession"/>.
+            </summary>
+            <param name="session"></param>
+        </member>
+        <member name="P:NServiceBus.Testing.TestableRavenStorageSession.Session">
+            <summary>
+            The document session which is retrieved by calling <see cref="M:NServiceBus.RavenSessionExtension.RavenSession(NServiceBus.Persistence.SynchronizedStorageSession)"/>.
+            </summary>
+        </member>
+        <member name="T:NServiceBus.RavenDbTimeoutSettingsExtensions">
+            <summary>
+                Configuration settings specific to the timeout storage
+            </summary>
+        </member>
+        <member name="M:NServiceBus.RavenDbTimeoutSettingsExtensions.UseDocumentStoreForTimeouts(NServiceBus.PersistenceExtensions{NServiceBus.RavenDBPersistence},Raven.Client.Documents.IDocumentStore)">
+            <summary>
+                Configures the given document store to be used when storing timeouts
+            </summary>
+            <param name="cfg"></param>
+            <param name="documentStore">The document store to use</param>
+        </member>
+        <member name="M:NServiceBus.RavenDbTimeoutSettingsExtensions.UseDocumentStoreForTimeouts(NServiceBus.PersistenceExtensions{NServiceBus.RavenDBPersistence},System.Func{NServiceBus.Settings.ReadOnlySettings,Raven.Client.Documents.IDocumentStore})">
+            <summary>
+                Configures the given document store to be used when storing timeouts
+            </summary>
+            <param name="cfg"></param>
+            <param name="storeCreator">A Func that will create the document store on NServiceBus initialization.</param>
+        </member>
+        <member name="P:NServiceBus.TimeoutPersisters.RavenDB.TimeoutData.Id">
+            <summary>
+                Id of this timeout
+            </summary>
+        </member>
+        <member name="P:NServiceBus.TimeoutPersisters.RavenDB.TimeoutData.Destination">
+            <summary>
+                The address of the client who requested the timeout.
+            </summary>
+        </member>
+        <member name="P:NServiceBus.TimeoutPersisters.RavenDB.TimeoutData.SagaId">
+            <summary>
+                The saga ID.
+            </summary>
+        </member>
+        <member name="P:NServiceBus.TimeoutPersisters.RavenDB.TimeoutData.State">
+            <summary>
+                Additional state.
+            </summary>
+        </member>
+        <member name="P:NServiceBus.TimeoutPersisters.RavenDB.TimeoutData.Time">
+            <summary>
+                The time at which the timeout expires.
+            </summary>
+        </member>
+        <member name="P:NServiceBus.TimeoutPersisters.RavenDB.TimeoutData.OwningTimeoutManager">
+            <summary>
+                The timeout manager that owns this particular timeout
+            </summary>
+        </member>
+        <member name="P:NServiceBus.TimeoutPersisters.RavenDB.TimeoutData.Headers">
+            <summary>
+                Store the headers to preserve them across timeouts
+            </summary>
+        </member>
+    </members>
+</doc>
