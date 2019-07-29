@@ -31,7 +31,6 @@ D:\Dev\NServiceBus.RavenDB4.TCPIssue\TCPIssue\bin\Debug\NServiceBus.Newtonsoft.J
 D:\Dev\NServiceBus.RavenDB4.TCPIssue\TCPIssue\bin\Debug\NServiceBus.ObjectBuilder.StructureMap.pdb
 D:\Dev\NServiceBus.RavenDB4.TCPIssue\TCPIssue\bin\Debug\NServiceBus.ObjectBuilder.StructureMap.xml
 D:\Dev\NServiceBus.RavenDB4.TCPIssue\TCPIssue\bin\Debug\NServiceBus.RavenDB.pdb
-D:\Dev\NServiceBus.RavenDB4.TCPIssue\TCPIssue\bin\Debug\NServiceBus.RavenDB.xml
 D:\Dev\NServiceBus.RavenDB4.TCPIssue\TCPIssue\bin\Debug\NServiceBus.Transport.RabbitMQ.pdb
 D:\Dev\NServiceBus.RavenDB4.TCPIssue\TCPIssue\bin\Debug\NServiceBus.Transport.RabbitMQ.xml
 D:\Dev\NServiceBus.RavenDB4.TCPIssue\TCPIssue\bin\Debug\RabbitMQ.Client.xml
@@ -44,3 +43,5 @@ D:\Dev\NServiceBus.RavenDB4.TCPIssue\TCPIssue\bin\Debug\System.Threading.Tasks.E
 D:\Dev\NServiceBus.RavenDB4.TCPIssue\TCPIssue\obj\Debug\TCPIssue.csproj.CopyComplete
 D:\Dev\NServiceBus.RavenDB4.TCPIssue\TCPIssue\obj\Debug\TCPIssue.exe
 D:\Dev\NServiceBus.RavenDB4.TCPIssue\TCPIssue\obj\Debug\TCPIssue.pdb
+D:\Dev\NServiceBus.RavenDB4.TCPIssue\TCPIssue\bin\Debug\Lambda2Js.Signed.dll
+D:\Dev\NServiceBus.RavenDB4.TCPIssue\TCPIssue\bin\Debug\Lambda2Js.Signed.xml
