@@ -38,9 +38,6 @@ namespace RavenDB.Tryout
 
         private static IDocumentStore BuildDocumentStore()
         {
-            var urlsAppSetting = ConfigurationManager.AppSettings["Raven/Urls"];
-            var urls = urlsAppSetting.Split(';').Select(x => x?.Trim()).ToArray();
-
             var store = new DocumentStore
             {
                 Urls = new []{ "http://localhost:8090" },
